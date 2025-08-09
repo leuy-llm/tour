@@ -285,125 +285,54 @@
 </template>
 
 <script setup lang="ts">
-    import { onMounted, ref } from 'vue';
-    import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-vue-next";
-    import HeroSkeleton from '../components/HeroSkeleton.vue';
-    const popularTours = ref([
-        {
-            id: 1,
-            title: 'Bali Paradise',
-            description: '7 days exploring the beautiful islands of Bali with cultural experiences.',
-            price: 1299,
-            duration: '7 days',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 2,
-            title: 'European Adventure',
-            description: '14 days through Paris, Rome, and Barcelona with luxury accommodations.',
-            price: 2499,
-            duration: '14 days',
-            image: 'https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 3,
-            title: 'Tokyo Discovery',
-            description: '10 days experiencing traditional and modern Japan.',
-            price: 1899,
-            duratin: '10 days',
-            image: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 4,
-            title: 'Machu Picchu Adventure',
-            description: '7 days exploring the breathtaking mountains of Machu Picchu.',
-            price: 1499,
-            duration: '7 days',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 5,
-            title: 'Santorini Island Escape',
-            description: '14 days exploring the beautiful island of Santorini with luxurious accommodations.',
-            price: 1999,
-            duration: '14 days',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        }
-    ])
+import { ref, onMounted } from 'vue'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import HeroSkeleton from '../components/HeroSkeleton.vue'
+import { getAllTours } from '../services/tourService'
 
-    const testimonials = ref([
-        {
-            id: 1,
-            name: 'John Doe',
-            message: 'Great experience! The tour was amazing and the guides were knowledgeable and friendly. Highly recommended!',
-            role: 'customer',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 2,
-            name: 'Jane Smith',
-            message: 'Excellent tour! The tour guide was very knowledgeable and made the experience enjoyable. Highly recommended!',
-            role: 'customer',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        },
-        {
-            id: 3,
-            name: 'Michael Johnson',
-            message: 'Great tour! The tour guide was very knowledgeable and made the experience enjoyable. Highly recommended!',
-            role: 'customer',
-            image: 'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=800'
-        }
-    ])
+const popularTours = ref<any[]>([])   // initially empty, will be filled by service
+const testimonials = ref([
+  { id: 1, name: 'John Doe', message: 'Great experience!...', role: 'customer' },
+  { id: 2, name: 'Jane Smith', message: 'Excellent tour!...', role: 'customer' },
+  { id: 3, name: 'Michael Johnson', message: 'Great tour!...', role: 'customer' }
+])
 
-    const currentSlide = ref(0);
-    const destinations = ref([
-        {
-      name: "Tegallalang",
-      type: "Rice Terraces",
-      image: "https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    },
-    {
-      name: "Kelingking",
-      type: "Beach View",
-      image: "https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    },
-    {
-      name: "Uluwatu",
-      type: "Temple",
-      image: "https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    },
-    {
-      name: "Seminyak",
-      type: "Beach Club",
-      image: "https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    },
-    {
-      name: "Mount Batur",
-      type: "Volcano Sunrise",
-      image: "https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    },
-    {
-      name: "Nusa Penida",
-      type: "Island Paradise",
-      image: "https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-    }
-  ]);
-   function prevSlide() {
-    currentSlide.value =
-        (currentSlide.value - 1 + Math.ceil(destinations.value.length / 2)) %
-        Math.ceil(destinations.value.length / 2);
-    }
+const currentSlide = ref(0)
+const destinations = ref([
+  { name: 'Tegallalang', type: 'Rice Terraces', image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { name: 'Kelingking', type: 'Beach View', image: 'https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { name: 'Uluwatu', type: 'Temple', image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { name: 'Seminyak', type: 'Beach Club', image: 'https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { name: 'Mount Batur', type: 'Volcano Sunrise', image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { name: 'Nusa Penida', type: 'Island Paradise', image: 'https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' }
+])
+
+function prevSlide() {
+  currentSlide.value =
+    (currentSlide.value - 1 + Math.ceil(destinations.value.length / 2)) %
+    Math.ceil(destinations.value.length / 2)
+}
 
 function nextSlide() {
   currentSlide.value =
-    (currentSlide.value + 1) % Math.ceil(destinations.value.length / 2);
+    (currentSlide.value + 1) % Math.ceil(destinations.value.length / 2)
 }
 
+// loading flag used by <HeroSkeleton />
 const loading = ref(true)
 
-onMounted(() => {
-  setTimeout(() => {
-    loading.value = false
-  }, 1500)
+onMounted(async () => {
+  try {
+    loading.value = true
+    // load tours via service (always a Promise)
+    const tours = await getAllTours()
+    popularTours.value = tours
+  } catch (err) {
+    console.error('Error loading tours:', err)
+    // fallback: keep popularTours empty or set default values
+  } finally {
+    // keep skeleton visible for a tiny bit so it doesn't flicker
+    setTimeout(() => (loading.value = false), 300)
+  }
 })
 </script>
