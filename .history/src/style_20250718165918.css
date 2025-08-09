@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .animate-dropdown {
+    animation: dropdown 0.5s ease-in-out;
+  }
+
+  @keyframes dropdown {
+    from {
+      transform: translateY(-5%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .hero-carousel :deep(.p-carousel-indicators) {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-carousel :deep(.p-carousel-indicator) {
+  background: rgba(255, 255, 255, 0.5);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+}
+
+.hero-carousel :deep(.p-carousel-indicator.p-highlight) {
+  background: white;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in 1s ease-out 0.3s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in 1s ease-out 0.6s both;
+}
+
+.p-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.p-button {
+  border-radius: 8px;
+}
+
+.p-inputtext,
+.p-dropdown,
+.p-calendar {
+  border-radius: 8px;
+}
+
+.p-dialog {
+  border-radius: 12px;
+}
+
+.p-tabview :deep(.p-tabview-panels) {
+  padding: 1.5rem 0;
+}
+
+.p-galleria :deep(.p-galleria-item-wrapper) {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+  /* #app {
+        @apply min-h-screen;
+        @apply bg-gray-100;
+    } */
+}
+
+@layer base {
+  @apply min-h-screen;
+  @apply bg-gray-100;
+}

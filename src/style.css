@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@theme {
+     --color-mint-500: oklch(0.72 0.11 178);
+  
+  /* Primary colors */
+    --color-primary-50: oklch(0.96 0.02 250);
+    --color-primary-100: oklch(0.92 0.03 250);
+    --color-primary-200: oklch(0.85 0.04 250);
+    --color-primary-300: oklch(0.75 0.05 250);
+    --color-primary-400: oklch(0.66 0.06 250);
+    --color-primary-500: oklch(0.64 0.18 256);
+    --color-primary-600: oklch(0.58 0.19 258);
+    --color-primary-700: oklch(0.53 0.20 262);
+    --color-primary-800: oklch(0.47 0.21 266);
+    --color-primary-900: oklch(0.41 0.22 270);
+
+
+  /* Gray colors */
+    --color-gray-50: oklch(0.98 0.005 260);
+    --color-gray-100: oklch(0.96 0.01 260);
+    --color-gray-200: oklch(0.92 0.02 260);
+    --color-gray-300: oklch(0.86 0.03 260);
+    --color-gray-400: oklch(0.74 0.04 260);
+    --color-gray-500: oklch(0.62 0.05 260);
+    --color-gray-600: oklch(0.52 0.05 260);
+    --color-gray-700: oklch(0.44 0.05 260);
+    --color-gray-800: oklch(0.34 0.04 260);
+    --color-gray-900: oklch(0.26 0.03 260);
+}
+
+@layer base {
+    html {
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+        @apply bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen;
+    }
+}
