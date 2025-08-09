@@ -34,7 +34,7 @@
                                 to="/tours"
                                 class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
                             >
-                                <ArrowRight class="inline-block ml-2" /> Explore Tours
+                                <i class="pi pi-arrow-right inline-block ml-2" /> Explore Tours
                             </router-link>
                             <router-link
                                 to="/contact"
@@ -92,10 +92,8 @@
                         @click="prevSlide"
                         class="group flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-300"
                     >
-                        <ChevronLeft
-                        :size="20"
-                        class="text-white group-hover:scale-110 transition-transform duration-300"
-                        />
+                        <i class="pi pi-arrow-left text-white group-hover:scale-110 transition-transform duration-300" />
+                        
                     </button>
 
                     <!-- Slide Indicators -->
@@ -113,10 +111,7 @@
                         @click="nextSlide"
                         class="group flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-300"
                     >
-                        <ChevronRight
-                        :size="20"
-                        class="text-white group-hover:scale-110 transition-transform duration-300"
-                        />
+                         <i class="pi pi-arrow-right text-white group-hover:scale-110 transition-transform duration-300" />
                     </button>
                     </div>
                 </div>
@@ -286,9 +281,8 @@
 </template>
 
 <script setup lang="ts">
-    import { onMounted, ref } from 'vue';
-    import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-vue-next";
-    import HeroSkeleton from '../components/HeroSkeleton.vue';
+    import { defineAsyncComponent, onMounted, ref } from 'vue';
+    const HeroSkeleton = defineAsyncComponent(() => import('../components/HeroSkeleton.vue'));
     const popularTours = ref([
         {
             id: 1,
@@ -403,8 +397,12 @@ function nextSlide() {
 const loading = ref(true)
 
 onMounted(() => {
-  setTimeout(() => {
-    loading.value = false
-  }, 1500)
-})
+  try {
+    setTimeout(() => {
+      loading.value = false;
+    }, 1500);
+  } catch (err) {
+    console.error("Home mount error:", err);
+  }
+});
 </script>
