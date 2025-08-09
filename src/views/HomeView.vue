@@ -54,7 +54,7 @@
                         :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
                     >
                         <div
-                        v-for="(slide, slideIndex) in Math.ceil(destinations.length / 2)"
+                        v-for="(_slide, slideIndex) in Math.ceil(destinations.length / 2)"
                         :key="slideIndex"
                         class="w-full flex-shrink-0"
                         >
