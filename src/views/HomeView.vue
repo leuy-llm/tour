@@ -281,8 +281,8 @@
 </template>
 
 <script setup lang="ts">
-    import { defineAsyncComponent, onMounted, ref } from 'vue';
-    const HeroSkeleton = defineAsyncComponent(() => import('../components/HeroSkeleton.vue'));
+    import {  onMounted, ref } from 'vue';
+    import HeroSkeleton from '../components/HeroSkeleton.vue';
     const popularTours = ref([
         {
             id: 1,
@@ -394,15 +394,16 @@ function nextSlide() {
     (currentSlide.value + 1) % Math.ceil(destinations.value.length / 2);
 }
 
-const loading = ref(true)
 
-onMounted(() => {
-  try {
-    setTimeout(() => {
-      loading.value = false;
-    }, 1500);
-  } catch (err) {
-    console.error("Home mount error:", err);
-  }
-});
+    const loading = ref(true)
+
+    onMounted(() => {
+    try {
+        setTimeout(() => {
+        loading.value = false;
+        }, 1500);
+    } catch (err) {
+        console.error("Home mount error:", err);
+    }
+    });
 </script>

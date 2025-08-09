@@ -179,6 +179,42 @@ const tours = [
       { title: 'Arrival in Denpasar', description: 'Airport pickup and hotel transfer.' },
       { title: 'Ubud Cultural Tour', description: 'Visit rice terraces and Monkey Forest.' }
     ]
+  },
+  {
+    id: 2,
+    title: 'European Adventure',
+    location: 'Paris, Rome, Barcelona',
+    description: '14 days through Paris, Rome, and Barcelona with luxury accommodations and guided tours.',
+    fullDescription: 'Experience the best of Europe on this grand 14-day tour through three iconic cities. From the romantic streets of Paris to the ancient wonders of Rome and the vibrant culture of Barcelona, this journey offers a perfect blend of history, art, cuisine, and architecture. Stay in luxury hotels, enjoy guided tours of world-famous landmarks, and immerse yourself in the rich cultural heritage of these magnificent European capitals.',
+    price: 2499,
+    duration: 14,
+    maxGroupSize: 16,
+    difficulty: 'Moderate',
+    rating: 5,
+    reviews: 89,
+    gallery: [
+      'https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg',
+      'https://images.pexels.com/photos/1456291/pexels-photo-1456291.jpeg',
+      'https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg',
+      'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg'
+    ],
+    included: [
+      '13 nights in 4-star hotels',
+      'Daily breakfast and 8 dinners',
+      'High-speed train tickets between cities',
+      'Professional local guides in each city',
+      'Skip-the-line tickets to major attractions',
+      'Wine tasting in Barcelona',
+      'Seine River cruise in Paris'
+    ],
+    itinerary: [
+      { title: 'Arrival in Paris', description: 'Check into your hotel and evening stroll along the Seine River with welcome dinner.' },
+      { title: 'Paris Highlights', description: 'Visit Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral. Evening Seine river cruise.' },
+      { title: 'Versailles Day Trip', description: 'Full day excursion to the Palace of Versailles and its magnificent gardens.' },
+      { title: 'Montmartre and Sacré-Cœur', description: 'Explore artistic Montmartre district, visit Sacré-Cœur Basilica, and enjoy panoramic city views.' },
+      { title: 'Travel to Rome', description: 'High-speed train to Rome. Check into hotel and evening food tour in Trastevere.' },
+      { title: 'Ancient Rome', description: 'Guided tour of Colosseum, Roman Forum, and Palatine Hill with skip-the-line access.' }
+    ]
   }
 ]
 

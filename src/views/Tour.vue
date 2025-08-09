@@ -25,67 +25,66 @@
       </div>
 
       <!-- Tours Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Show skeletons while loading -->
         <template v-if="loading">
-          <TourSkeleton v-for="n in filteredTours.length || 6" :key="'skeleton-' + n" />
+          <TourSkeleton v-for="n in 6" :key="'skeleton-' + n" />
         </template>
-
 
         <!-- Show actual tour cards when not loading -->
         <template v-else>
-            <div 
+          <div 
             v-for="tour in filteredTours" 
             :key="tour.id"
             class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-            >
+          >
             <div class="relative">
-                <img :src="tour.image" :alt="tour.title" class="w-full h-64 object-cover" />
-                <div class="absolute top-4 left-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              <img :src="tour.image" :alt="tour.title" class="w-full h-64 object-cover" />
+              <div class="absolute top-4 left-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                 {{ tour.duration }} Days
-                </div>
-                <div class="absolute top-4 right-4 bg-white text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
+              </div>
+              <div class="absolute top-4 right-4 bg-white text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
                 {{ tour.category }}
-                </div>
+              </div>
             </div>
 
             <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2">{{ tour.title }}</h3>
-                <p class="text-gray-600 mb-4">{{ tour.description }}</p>
+              <h3 class="text-xl font-semibold mb-2">{{ tour.title }}</h3>
+              <p class="text-gray-600 mb-4">{{ tour.description }}</p>
 
-                <div class="flex items-center mb-4 text-sm text-gray-500">
+              <div class="flex items-center mb-4 text-sm text-gray-500">
                 <i class="pi pi-map-marker mr-2"></i>
                 <span>{{ tour.location }}</span>
-                </div>
+              </div>
 
-                <div class="flex items-center mb-4">
+              <div class="flex items-center mb-4">
                 <div class="flex text-yellow-400 mr-2">
-                    <i 
+                  <i 
                     v-for="n in 5" 
                     :key="n" 
                     class="pi" 
                     :class="n <= tour.rating ? 'pi-star-fill' : 'pi-star'"
-                    ></i>
+                  ></i>
                 </div>
                 <span class="text-sm text-gray-600">({{ tour.reviews }} reviews)</span>
-                </div>
+              </div>
 
-                <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center">
                 <div>
-                    <span class="text-2xl font-bold text-primary-600">${{ tour.price }}</span>
-                    <span class="text-sm text-gray-500">/person</span>
+                  <span class="text-2xl font-bold text-primary-600">${{ tour.price }}</span>
+                  <span class="text-sm text-gray-500">/person</span>
                 </div>
                 <router-link
-                    :to="`/tour/${tour.id}`"
-                    class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg transition-colors font-semibold"
+                  :to="`/tour/${tour.id}`"
+                  class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg transition-colors font-semibold"
                 >
-                    Book Now
+                  Book Now
                 </router-link>
-                </div>
+              </div>
             </div>
-            </div>
+          </div>
         </template>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -94,8 +93,23 @@
 import { ref, computed, onMounted } from 'vue'
 import TourSkeleton from '../components/TourSkeleton.vue'
 
-const selectedCategory = ref('All')
-const loading = ref(true)
+// Types (Optional but helpful)
+interface Tour {
+  id: number
+  title: string
+  description: string
+  price: number
+  duration: number
+  location: string
+  category: string
+  rating: number
+  reviews: number
+  image: string
+}
+
+// State
+const selectedCategory = ref<string>('All')
+const loading = ref<boolean>(true)
 
 onMounted(() => {
   setTimeout(() => {
@@ -105,7 +119,7 @@ onMounted(() => {
 
 const categories = ['All', 'Adventure', 'Cultural', 'Beach', 'City', 'Nature']
 
-const tours = [
+const tours = ref<Tour[]>([
   {
     id: 1,
     title: 'Bali Paradise',
@@ -178,12 +192,12 @@ const tours = [
     reviews: 108,
     image: 'https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=800'
   }
-]
+])
 
 const filteredTours = computed(() => {
   if (selectedCategory.value === 'All') {
-    return tours
+    return tours.value
   }
-  return tours.filter(tour => tour.category === selectedCategory.value)
+  return tours.value.filter(tour => tour.category === selectedCategory.value)
 })
 </script>
